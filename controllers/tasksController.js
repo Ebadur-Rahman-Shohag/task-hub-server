@@ -36,20 +36,20 @@ const getTaskById = async (req, res) => {
 // Get only the task I added
 const getMyTasks = async (req, res) => {
     try {
-        const { email } = req.body;
-        if (!email) {
-            return res.status(400).json({ error: "Email is required" });
-        }
+        const { email } = req.query; // e.g. /api/my-tasks?email=user@example.com
+        if (!email) return res.status(400).json({ message: "Email required" });
+
         const tasks = await Task.find({ email: email });
-        res.status(200).json({ tasks });
-    } catch (error) {
-        res.status(500).json({ error: "Internal Server Error" });
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
+
 
 module.exports = {
     createTask,
     getAllTasks,
     getTaskById,
-    getMyTasks
+    getMyTasks,
 };
