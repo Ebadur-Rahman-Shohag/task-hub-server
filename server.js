@@ -14,7 +14,6 @@ app.use("/api/v1/tasks", tasksRouter);
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URL = process.env.MONGODB_URI;
-console.log(MONGODB_URL);
 
 const startServer = async () => {
     try {
