@@ -1,19 +1,20 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const connectDB = require('./db/connect');
-require('dotenv').config();
-const cors = require('cors');
-const tasksRouter = require('./routes/tasksRoutes');
+const connectDB = require("./db/connect");
+require("dotenv").config();
+const cors = require("cors");
+const tasksRouter = require("./routes/tasksRoutes");
 
 // middleware
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 // routes
-app.use('/api/v1/tasks', tasksRouter);
+app.use("/api/v1/tasks", tasksRouter);
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URL = process.env.MONGODB_URI;
+console.log(MONGODB_URL);
 
 const startServer = async () => {
     try {
@@ -24,6 +25,6 @@ const startServer = async () => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 startServer();
