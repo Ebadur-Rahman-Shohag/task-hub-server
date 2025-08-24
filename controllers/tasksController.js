@@ -36,11 +36,11 @@ const getTaskById = async (req, res) => {
 // Get only the task I added
 const getMyTasks = async (req, res) => {
     try {
-        const { email } = req.params; // e.g. /api/my-tasks/user@example.com
+        const { email } = req.query; // e.g. /api/my-tasks?email=user@example.com
         if (!email) return res.status(400).json({ message: "Email required" });
 
         const tasks = await Task.find({ email: email });
-        res.json(tasks);
+        res.status(200).json({ tasks });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
