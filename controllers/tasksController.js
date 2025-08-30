@@ -46,9 +46,39 @@ const getMyTasks = async (req, res) => {
     }
 };
 
+// Update a task
+const updateTask = async (req, res) => {
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+        });
+        if (!updatedTask) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        res.status(200).json({ task: updatedTask });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+// Delete a task
+const deleteTask = async (req, res) => {
+    try {
+        const deletedTask = await Task.findByIdAndDelete(req.params.id);
+        if (!deletedTask) {
+            return res.status(404).json({ error: "Task not found" });
+        }
+        res.status(200).json({ task: deletedTask });
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
 module.exports = {
     createTask,
     getAllTasks,
     getTaskById,
     getMyTasks,
+    updateTask,
+    deleteTask,
 };
